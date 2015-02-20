@@ -58,7 +58,7 @@ function cacheRooster($klas, $rooster)
 
 function jsonFront($json)
 {
-	return json_encode($json, 128);
+	return json_encode($json);
 }
 
 function checkChanges()
@@ -70,4 +70,3 @@ function checkChanges()
 	$results = $db->query($sql); 
 	
 }
-?>
