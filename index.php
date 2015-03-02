@@ -28,15 +28,12 @@ $date = $_REQUEST['date'];
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300,500,100' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <header id="header">
+    <header id="header" class="collection-header">
         <nav class="top-nav">
-            <div class="nav-wrapper center">
-                <div id="date"></div>
-            </div>
+            <span id="date" class="center"></span>
         </nav>
-
     </header>
-    <div id="container">
+    <main id="main">
         <div id="rooster">
             <table class="striped">
                 <thead>
@@ -48,9 +45,22 @@ $date = $_REQUEST['date'];
                 <tbody id="rooster_body"></tbody>
             </table>
         </div>
-    </div>
-    <footer id="footer">
-
+    </main>
+    <footer id="footer" class="page-footer">
+        <div class="container">
+            <span class="previous left-align left">
+                <a class="waves-effect waves-light btn red lighten-3">
+                    <i class="mdi-hardware-keyboard-arrow-left left"></i>
+                    <span class="day-previous">test</span>
+                </a>
+            </span>
+            <span class="next right-align right">
+                <a class="waves-effect waves-light btn red lighten-3">
+                    <i class="mdi-hardware-keyboard-arrow-right right"></i>
+                    <span class="day-next">test</span>
+                </a>
+            </span>
+        </div>
     </footer>
     <script src="js/jquery-2.1.3.min.js"></script>
     <script src="js/materialize.min.js"></script>

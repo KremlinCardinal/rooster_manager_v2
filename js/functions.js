@@ -6,6 +6,11 @@ function processJSON(jsonArray,parTimestamp) {
     var date = getDate(timestamp);
     $("#date").html(date);
 
+    var yesterday = getYesterday(timestamp);
+    var tomorrow = getTomorrow(timestamp);
+    $(".day-previous").html(yesterday);
+    $(".day-next").html(tomorrow);
+
     jsonArray.data.forEach(checkDate);
 }
 
@@ -25,6 +30,22 @@ function checkDate(value, index, ar) {
             s++;
         }
     };
+}
+
+function getYesterday(timestamp) {
+    var fulldate = new Date(timestamp);
+
+    fulldate.setDate(fulldate.getDate() - 1);
+    var day = arrDays[fulldate.getDay()];
+    return day;
+}
+
+function getTomorrow(timestamp) {
+    var fulldate = new Date(timestamp);
+
+    fulldate.setDate(fulldate.getDate() + 1);
+    var day = arrDays[fulldate.getDay()];
+    return day;
 }
 
 function getDate(timestamp) {
