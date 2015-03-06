@@ -1,5 +1,7 @@
 <?php
-if(!isset($_REQUEST["klas"])) exit;
+if(!isset($_REQUEST["klas"])) {
+	$_REQUEST["klas"] = 'AO2A';
+}
 $klas = $_REQUEST["klas"];
 require_once("functions.php");
 
@@ -48,16 +50,16 @@ $date = $_REQUEST['date'];
     </main>
     <footer id="footer" class="page-footer">
         <div class="container">
-            <span class="previous left-align left">
+            <span class="previous left-align left" onclick="goToPreviousDay()">
                 <a class="waves-effect waves-light btn red lighten-3">
                     <i class="mdi-hardware-keyboard-arrow-left left"></i>
-                    <span class="day-previous">test</span>
+                    <span class="day-previous">Vorige dag</span>
                 </a>
             </span>
-            <span class="next right-align right">
+            <span class="next right-align right" onclick="goToNextDay()">
                 <a class="waves-effect waves-light btn red lighten-3">
                     <i class="mdi-hardware-keyboard-arrow-right right"></i>
-                    <span class="day-next">test</span>
+                    <span class="day-next">Volgende dag</span>
                 </a>
             </span>
         </div>
@@ -67,9 +69,9 @@ $date = $_REQUEST['date'];
     <script src="js/custom.js"></script>
     <script src="js/functions.js"></script>
     <script>
-        var jsonArray =JSON.parse('<?= $jsonArray ?>');
+        var jsonArray = JSON.parse('<?= $jsonArray ?>');
         var date = <?= $date ?>;
-        processJSON(jsonArray, date);
+        processJSON(jsonArray.data, date);
     </script>
 </body>
 </html>

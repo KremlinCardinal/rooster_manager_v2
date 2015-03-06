@@ -1,35 +1,58 @@
 var timestamp;
+var yesterdayTs;
+var tomorrowTs;
+var JSONArr;
 
 function processJSON(jsonArray,parTimestamp) {
+	JSONArr = jsonArray;
     timestamp = parTimestamp;
+
+	yesterdayTs = getYesterdayTS(timestamp);
+	tomorrowTs = getTomorrowTS(timestamp);
 
     var date = getDate(timestamp);
     $("#date").html(date);
+	$("#rooster_body").html('');
 
     var yesterday = getYesterday(timestamp);
     var tomorrow = getTomorrow(timestamp);
     $(".day-previous").html(yesterday);
     $(".day-next").html(tomorrow);
 
-    jsonArray.data.forEach(checkDate);
+    for(var i = 0; i < JSONArr.length; i++) {
+	    if(JSONArr[i].date_ts == timestamp) {
+		    var s = 1;
+		    for(var countr = 0; countr < JSONArr[i].items.length; countr++) {
+			    $("#rooster_body").append(
+				    '<tr class="row'+s+'">' +
+					    '<td class="time col1">'+JSONArr[i].items[countr].t+'</td>' +
+					    '<td class="class col2">'+JSONArr[i].items[countr].v+'</td>' +
+					    '<td class="room col3">'+JSONArr[i].items[countr].r+'</td>' +
+					    '<td class="teacher col4">'+JSONArr[i].items[countr].l+'</td>' +
+				    '</tr>'
+			    );
+			    s++;
+		    }
+	    }
+    }
+
+	if($("#rooster_body").html() === '') {
+		$("#rooster_body").append(
+			'<tr>' +
+				'<td colspan="4" class="center">Er zijn geen lessen voor vandaag gevonden.</td>' +
+			'</tr>'
+		);
+	}
 }
 
-function checkDate(value, index, ar) {
-    var i;
-    var s = 1;
-    if(value.date_ts == timestamp) {
-        for(i = 0; i < value.items.length; i++) {
-            $("#rooster_body").append(
-                '<tr class="row'+s+'">' +
-                    '<td class="time col1">'+value.items[i].t+'</td>' +
-                    '<td class="class col2">'+value.items[i].v+'</td>' +
-                    '<td class="room col3">'+value.items[i].r+'</td>' +
-                    '<td class="teacher col4">'+value.items[i].l+'</td>' +
-                '</tr>'
-            );
-            s++;
-        }
-    };
+function goToNextDay() {
+	timestamp = tomorrowTs;
+	processJSON(JSONArr,timestamp);
+}
+
+function goToPreviousDay() {
+	timestamp = yesterdayTs;
+	processJSON(JSONArr,timestamp);
 }
 
 function getYesterday(timestamp) {
@@ -40,12 +63,28 @@ function getYesterday(timestamp) {
     return day;
 }
 
+function getYesterdayTS(timestamp) {
+	var fulldate = new Date(timestamp);
+
+	fulldate.setDate(fulldate.getDate() - 1);
+	var yesterdayTS = fulldate.getTime();
+	return yesterdayTS;
+}
+
 function getTomorrow(timestamp) {
     var fulldate = new Date(timestamp);
 
     fulldate.setDate(fulldate.getDate() + 1);
     var day = arrDays[fulldate.getDay()];
     return day;
+}
+
+function getTomorrowTS(timestamp) {
+	var fulldate = new Date(timestamp);
+
+	fulldate.setDate(fulldate.getDate() + 1);
+	var tomorrowTS = fulldate.getTime();
+	return tomorrowTS;
 }
 
 function getDate(timestamp) {
