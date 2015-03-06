@@ -7,7 +7,7 @@ require_once("functions.php");
 
 $jsonArray = jsonFront(getRooster($klas));
 
-$start_dt = mktime(8,30,0,date('n'),date('j'),date('Y')).'000';
+$start_dt = strtotime('08:30').'000';
 
 if(!isset($_REQUEST['date'])) {
     $_REQUEST['date'] = $start_dt;
@@ -70,8 +70,15 @@ $date = $_REQUEST['date'];
     <script src="js/functions.js"></script>
     <script>
         var jsonArray = JSON.parse('<?= $jsonArray ?>');
-        var date = <?= $date ?>;
-        processJSON(jsonArray.data, date);
+        var preTs = <?= $date ?>;
+        var fullDate = new Date(<?= $date ?>);
+
+        var date = addZero(fullDate.getDate());
+        var month = addZero(fullDate.getMonth()+1);
+        var year = fullDate.getFullYear();
+
+        var dateTs = year + '-' + month + '-' + date;
+        processJSON(jsonArray.data, dateTs, preTs);
     </script>
 </body>
 </html>

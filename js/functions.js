@@ -1,14 +1,20 @@
+var dateTs;
 var timestamp;
 var yesterdayTs;
+var yesterdayDateTs;
+var tomorrowDateTs;
 var tomorrowTs;
 var JSONArr;
 
-function processJSON(jsonArray,parTimestamp) {
+function processJSON(jsonArray,preDateTs,preTimestamp) {
 	JSONArr = jsonArray;
-    timestamp = parTimestamp;
+	dateTs = preDateTs;
+    timestamp = preTimestamp;
 
 	yesterdayTs = getYesterdayTS(timestamp);
 	tomorrowTs = getTomorrowTS(timestamp);
+	yesterdayDateTs = formatDateTs(yesterdayTs);
+	tomorrowDateTs = formatDateTs(tomorrowTs);
 
     var date = getDate(timestamp);
     $("#date").html(date);
@@ -19,8 +25,10 @@ function processJSON(jsonArray,parTimestamp) {
     $(".day-previous").html(yesterday);
     $(".day-next").html(tomorrow);
 
+	var pattern = '^'+dateTs;
+
     for(var i = 0; i < JSONArr.length; i++) {
-	    if(JSONArr[i].date_ts == timestamp) {
+	    if(doRegCheck(pattern,JSONArr[i].date)) {
 		    var s = 1;
 		    for(var countr = 0; countr < JSONArr[i].items.length; countr++) {
 			    $("#rooster_body").append(
@@ -47,12 +55,14 @@ function processJSON(jsonArray,parTimestamp) {
 
 function goToNextDay() {
 	timestamp = tomorrowTs;
-	processJSON(JSONArr,timestamp);
+	dateTs = tomorrowDateTs;
+	processJSON(JSONArr,dateTs,timestamp);
 }
 
 function goToPreviousDay() {
 	timestamp = yesterdayTs;
-	processJSON(JSONArr,timestamp);
+	dateTs = yesterdayDateTs;
+	processJSON(JSONArr,dateTs,timestamp);
 }
 
 function getYesterday(timestamp) {
@@ -99,24 +109,24 @@ function getDate(timestamp) {
     return formattedDate;
 }
 
-function getDatetime(timestamp) {
-    var fulldate = new Date(timestamp);
-
-    var day = arrDays[fulldate.getDay()];
-    var date = addZero(fulldate.getDate());
-    var month = arrMonths[fulldate.getMonth()];
-    var year = fulldate.getFullYear();
-    var hours = addZero(fulldate.getHours());
-    var minutes = addZero(fulldate.getMinutes());
-    var seconds = addZero(fulldate.getSeconds());
-
-    var formattedDate = day + ' ' + date + ' ' + month + ' ' + year + ' | ' + hours + ':' + minutes + ':' + seconds;
-    return formattedDate;
-}
-
 function addZero(i) {
     if(i < 10) {
         i = '0' + i;
     }
     return i;
+}
+
+function doRegCheck(pattern,subject) {
+	var regex = new RegExp(pattern);
+	return regex.test(subject);
+}
+
+function formatDateTs(ts) {
+	var fullDate = new Date(ts);
+
+	var date = addZero(fullDate.getDate());
+	var month = addZero(fullDate.getMonth()+1);
+	var year = fullDate.getFullYear();
+
+	return year + '-' + month + '-' + date;
 }
