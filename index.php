@@ -5,8 +5,12 @@ if(!isset($_REQUEST['date'])) {
     $_REQUEST['date'] = $start_dt;
 }
 $date = $_REQUEST['date'];
-?>
 
+include 'api/functions.php';
+$a = getRooster("AO2A",-10);
+$b = json_encode($a);
+$jsonArray = $b;
+?>
 <!DOCTYPE html>
 <html>
 <head lang="nl">
@@ -61,7 +65,7 @@ $date = $_REQUEST['date'];
     <script src="js/custom.js"></script>
     <script src="js/functions.js"></script>
     <script>
-        var jsonArray = JSON.parse('<?= $jsonArray ?>');
+        var jsonArray = <?php echo $jsonArray; ?>;
         var preTs = <?= $date ?>;
         var fullDate = new Date(<?= $date ?>);
 
