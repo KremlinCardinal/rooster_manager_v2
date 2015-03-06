@@ -1,12 +1,4 @@
 <?php
-if(!isset($_REQUEST["klas"])) {
-	$_REQUEST["klas"] = 'AO2A';
-}
-$klas = $_REQUEST["klas"];
-require_once("functions.php");
-
-$jsonArray = jsonFront(getRooster($klas));
-
 $start_dt = strtotime('08:30').'000';
 
 if(!isset($_REQUEST['date'])) {
