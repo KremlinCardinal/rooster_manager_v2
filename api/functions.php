@@ -14,21 +14,17 @@ function getRooster($klas, $start = 0, $end = 10, $skipCacheCheck = false, $skip
 		$cache = getRoosterCache($klas);
 		if($cache!=false)
 			return $cache;
-		else
-		{
-			$start = 0;
-			$end = 10;
-		}
 	}
 	$url = "https://roosters.deltion.nl/api/roster?group=" . $klas . "&start=" . $start . "&end=" . $end;
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_URL,$url);
 	$result=curl_exec($ch);
 	$result=mb_convert_encoding($result,'ISO-8859-1','utf-8');
 	$result = substr($result,1,strlen($result));
-	if($skipCache==false)
+	if($skipCache==false &&  $start == 0 && $end == 10)
 		cacheRooster($klas, $result);
 	curl_close($ch);
 	$result = json_decode($result,true);
