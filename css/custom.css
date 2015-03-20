@@ -8,18 +8,32 @@ main {
     flex: 1 0 auto;
 }
 
-#header {
-    display: table;
-    width: 100%;
+#sidebar-logo {
+	margin-bottom: 56px;
 }
 
-#header > .top-nav {
-    display: table-row;
+.mdi-content-send {
+	margin: 0!important;
 }
 
-#header > .top-nav > .center {
-    display: table-cell;
-    color: #FFF;
-    font-size: 1.5rem;
-    padding: 0px;
+@media screen and (max-width: 400px) {
+	.brand-logo {
+		font-size: 1.8rem!important;
+	}
+
+	.day-next,
+    .day-previous {
+		display: none;
+	}
+
+    .mdi-hardware-keyboard-arrow-left,
+    .mdi-hardware-keyboard-arrow-right {
+	    margin: 0!important;
+    }
+}
+
+@media screen and (min-width: 993px) {
+	#sidebar-logo {
+		margin-bottom: 128px!important;
+	}
 }
