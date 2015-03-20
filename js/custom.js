@@ -28,4 +28,28 @@ $(document).ready(function(){
 
 	// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 	$('.modal-trigger').leanModal();
+
+	if($('#modal-registreer').hasClass("register_error_empty_field")) {
+		$('#modal-registreer').openModal();
+		toast('Een of meerdere velden zijn nog niet ingevuld!', 5000);
+	}
+
+	if($('#modal-registreer').hasClass("register_error_passwords_not_equal")) {
+		$('#modal-registreer').openModal();
+		toast('De opgegeven wachtwoorden komen niet met elkaar overeen.', 5000);
+	}
+
+	if($('#modal-registreer').hasClass("register_error_username_occupied")) {
+		$('#modal-registreer').openModal();
+		toast('De opgegeven gebruikersnaam is al in gebruik.', 5000);
+	}
+
+	if($('#modal-registreer').hasClass("register_error_succes")) {
+		toast('U bent geregistreerd, u kunt nu inloggen.', 5000);
+	}
+
+	if($('#modal-registreer').hasClass("register_error_mysql")) {
+		$('#modal-registreer').openModal();
+		toast('Er is iets fout gegaan!', 5000);
+	}
 });
