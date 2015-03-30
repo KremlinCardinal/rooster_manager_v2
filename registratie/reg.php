@@ -2,18 +2,18 @@
 $register_error = '';
 $register_errormessage = '';
 
-if(!empty($_POST)) {
-	if (empty($_POST['klas']) || empty($_POST['naam']) || empty($_POST['wachtwoord']) || empty($_POST['wachtwoord2'])) {
+if(!empty($_POST['reg']['submit'])) {
+	if (empty($_POST['reg']['klas']) || empty($_POST['reg']['naam']) || empty($_POST['reg']['wachtwoord']) || empty($_POST['reg']['wachtwoord2'])) {
 		$register_error = 'register_error_empty_field';
 	} else {
-		if(strcmp($_POST['wachtwoord'], $_POST['wachtwoord2']) !== 0) {
+		if(strcmp($_POST['reg']['wachtwoord'], $_POST['reg']['wachtwoord2']) !== 0) {
 			$register_error = 'register_error_passwords_not_equal';
 		} else {
 			$db = new PDO('mysql:host=localhost;dbname=project', 'deb67958_ruud', 'harmen');
 
-			$klas = strtolower($_POST['klas']);
-			$naam = $_POST['naam'];
-			$wachtwoord = md5($_POST['wachtwoord']);
+			$klas = strtolower($_POST['reg']['klas']);
+			$naam = $_POST['reg']['naam'];
+			$wachtwoord = md5($_POST['reg']['wachtwoord']);
 
 			$check = $db->prepare("SELECT gebruikersnaam FROM accounts WHERE gebruikersnaam = '$naam'");
 			$check->execute();
