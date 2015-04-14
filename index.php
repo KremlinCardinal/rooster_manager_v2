@@ -1,5 +1,6 @@
 <?php
 include_once "registratie/reg.php";
+include_once "login/login.php";
 
 $noClass = '';
 $hiddendiv = '';
@@ -91,7 +92,7 @@ $jsonArray = $b;
 		    </div>
 	    </form>
     </div>
-    <div id="modal-login" class="modal">
+    <div id="modal-login" class="modal <?= $login_error; ?>">
 	    <form action="#" method="post">
 		    <div class="modal-content">
 			    <h4>Inloggen</h4>

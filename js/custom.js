@@ -52,4 +52,18 @@ $(document).ready(function(){
 		$('#modal-registreer').openModal();
 		toast('Er is iets fout gegaan!', 5000);
 	}
+
+	if($('#modal-login').hasClass("login_error_empty_field")) {
+		$('#modal-login').openModal();
+		toast('Een of meerdere velden zijn nog niet ingevuld!', 5000);
+	}
+
+	if($('#modal-login').hasClass("login_error_wrong_credentials")) {
+		$('#modal-login').openModal();
+		toast('De opgegeven gebruikersnaam of wachtwoord is onjuist.', 5000);
+	}
+
+	if($('#modal-login').hasClass("login_error_succes")) {
+		toast('U bent nu ingelogd.', 5000);
+	}
 });

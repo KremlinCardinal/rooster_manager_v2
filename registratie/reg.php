@@ -1,6 +1,5 @@
 <?php
 $register_error = '';
-$register_errormessage = '';
 
 if(!empty($_POST['reg']['submit'])) {
 	if (empty($_POST['reg']['klas']) || empty($_POST['reg']['naam']) || empty($_POST['reg']['wachtwoord']) || empty($_POST['reg']['wachtwoord2'])) {
