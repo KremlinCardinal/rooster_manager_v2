@@ -58,20 +58,20 @@ function cacheRooster($klas, $rooster)
 	$db = new PDO('mysql:host=localhost;dbname='.$dbname, $dblogin, $dbpass); 
 	$klas = strtolower($klas);
 	$sql = " 
-    INSERT INTO `roosterManager`.`klassenroosters` (`klas`, `rooster`, `lastModified`) 
+    INSERT INTO `klassenroosters` (`klas`, `rooster`, `lastModified`) 
     VALUES ('".$klas."','".$rooster."',NOW()) 
     "; 
 	if(!$db->exec($sql))
 	{
 		echo "bestaat al<br>";
 		$sql = " 
-		UPDATE `roosterManager`.`klassenroosters` SET `rooster` = '".$rooster."', `lastModified` = NOW()
+		UPDATE `klassenroosters` SET `rooster` = '".$rooster."', `lastModified` = NOW()
 		WHERE `klas` = '".$klas."'
 		"; 
+		echo $sql."<br>";
 		if(!$db->exec($sql))
 			echo "kon ook niet updaten<br>";
 	}
-	exit;
 }
 
 function jsonFront($json)
@@ -113,15 +113,45 @@ function checkChanges()
 			echo "<br><br><hr><br><br>";
 			if(isset($check2[$key]))
 				if($check2[$key]!=$dag)
-					pushMessage("", $key, "Roosterwijziging");//echo "<h1>oh a noa something changed for ".$row["klas"]." for ".$key."!</h1>";
+				{
+					echo "<h1>WIJZIGING VOOR " . $key . "!</h1><br>";
+					notifyKlas($row["klas"], $key, "Roosterwijziging");//echo "<h1>oh a noa something changed for ".$row["klas"]." for ".$key."!</h1>";
+					
+					$sql = " 
+					UPDATE `klassenroosters` SET `rooster` = '".$rooster."', `lastModified` = NOW()
+					WHERE `klas` = '".$klas."'
+					"; 
+					echo $sql."<br>";
+					if(!$db->exec($sql))
+						echo "kon ook niet updaten<br>";
+				}
 		} 
 	}
 }
-
+function notifyKlas($klas, $message, $titel)
+{
+	global $dbname, $dblogin, $dbpass;
+	$db = new PDO('mysql:host=localhost;dbname='.$dbname, $dblogin, $dbpass); 
+	$klas = strtolower($klas);
+	$sql = " 
+    SELECT `pushid` 
+	FROM `accounts`
+	WHERE `klas` = '".$klas."'"; 
+	$registrationIds[] = array();
+	foreach ($db->query($sql) as $row) 
+	{
+		echo "TEST";
+		$registrationIds[] = $row["pushid"];
+		echo $row["pushid"] . "<br>";
+    }
+	pushMessage($registrationIds, $message, $titel);
+}
 function pushMessage($receivers, $message, $title)
 {
+	
 	define( 'API_ACCESS_KEY', 'AIzaSyChsqzcZFjdKEzXbd6gnkO6b-A7fDMxqq8' );
-	$registrationIds = array("APA91bGlme0Bo_0L_574pSlbqVKcM0KNyO4USoR22BI-urjDzCHpSm8hUPU4ThASkZDD9hJ9Q2yxZ7YSR_PfSWCT90XsUrySX_C4maBkS7PgEGFnp_LL6W8ghW5E7fKM8lasJoD995qOas-HYYfGFfXK3yQfXbs2_Q" );
+	$registrationIds = $receivers;
+	//$registrationIds = array("APA91bGlme0Bo_0L_574pSlbqVKcM0KNyO4USoR22BI-urjDzCHpSm8hUPU4ThASkZDD9hJ9Q2yxZ7YSR_PfSWCT90XsUrySX_C4maBkS7PgEGFnp_LL6W8ghW5E7fKM8lasJoD995qOas-HYYfGFfXK3yQfXbs2_Q" );
 	$msg = array
 	(
 		'message' 	=> $message,

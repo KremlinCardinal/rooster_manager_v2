@@ -8,7 +8,7 @@ if(!empty($_POST['reg']['submit'])) {
 		if(strcmp($_POST['reg']['wachtwoord'], $_POST['reg']['wachtwoord2']) !== 0) {
 			$register_error = 'register_error_passwords_not_equal';
 		} else {
-			$db = new PDO('mysql:host=localhost;dbname=project', 'deb67958_ruud', 'harmen');
+			$db = new PDO('mysql:host=localhost;dbname=deb67958_roostermanager', 'deb67958_ruud', 'harmen');
 
 			$klas = strtolower($_POST['reg']['klas']);
 			$naam = $_POST['reg']['naam'];
