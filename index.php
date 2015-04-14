@@ -1,6 +1,7 @@
 <?php
 include_once "registratie/reg.php";
 include_once "login/login.php";
+include_once "logout/logout.php";
 
 $noClass = '';
 $hiddendiv = '';
@@ -24,9 +25,16 @@ include 'api/functions.php';
 $a = getRooster($klas,-10);
 $b = json_encode($a);
 $jsonArray = $b;
+
+$show_login_register = '';
+$show_logout = 'hiddendiv';
+if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+	$show_logout = '';
+	$show_login_register = 'hiddendiv';
+}
 ?>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head lang="nl">
     <meta charset="UTF-8">
 
@@ -49,14 +57,16 @@ $jsonArray = $b;
 				    <i class="mdi-navigation-menu"></i>
 			    </a>
 			    <ul id="nav-mobile" class="right hide-on-med-and-down">
-				    <li><a class="modal-trigger" href="#modal-login">Inloggen</a></li>
-				    <li><a class="modal-trigger" href="#modal-registreer">Registreren</a></li>
+				    <li><a class="modal-trigger <?= $show_login_register; ?>" href="#modal-login">Inloggen</a></li>
+				    <li><a class="modal-trigger <?= $show_login_register; ?>" href="#modal-registreer">Registreren</a></li>
+				    <li><form method="post" action="#" id="logout_form"><a href="#" class="<?= $show_logout; ?>">Uitloggen</a></form></li>
 			    </ul>
 			    <ul class="side-nav" id="sidenav">
 				    <li id="sidebar-logo"><a href="" class="brand-logo">Rooster Manager</a></li>
 				    <div class="divider"></div>
-				    <li><a class="modal-trigger" href="#modal-login">Inloggen</a></li>
-				    <li><a class="modal-trigger" href="#modal-registreer">Registreren</a></li>
+				    <li><a class="modal-trigger <?= $show_login_register; ?>" href="#modal-login">Inloggen</a></li>
+				    <li><a class="modal-trigger <?= $show_login_register; ?>" href="#modal-registreer">Registreren</a></li>
+				    <li><form method="post" action="#" id="logout_form"><a href="#" class="<?= $show_logout; ?>">Uitloggen</a></form></li>
 			    </ul>
 		    </div>
 	    </nav>

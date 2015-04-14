@@ -1,11 +1,12 @@
 <?php
 $dbname = "roostermanager";
+$dbname = 'deb67958_roostermanager';
 $dblogin = "root";
 $dbpass = "";
 
-$dbname = "deb67958_roostermanager";
-$dblogin = "deb67958_ruud";
-$dbpass = "harmen";
+//$dbname = "deb67958_roostermanager";
+//$dblogin = "deb67958_ruud";
+//$dbpass = "harmen";
 
 function getRooster($klas, $start = 0, $end = 10, $skipCacheCheck = false, $skipCache = false)
 {
