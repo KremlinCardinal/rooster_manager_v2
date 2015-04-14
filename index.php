@@ -1,7 +1,8 @@
 <?php
+session_start();
+
 include_once "registratie/reg.php";
 include_once "login/login.php";
-include_once "logout/logout.php";
 
 $noClass = '';
 $hiddendiv = '';
@@ -59,14 +60,14 @@ if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 			    <ul id="nav-mobile" class="right hide-on-med-and-down">
 				    <li><a class="modal-trigger <?= $show_login_register; ?>" href="#modal-login">Inloggen</a></li>
 				    <li><a class="modal-trigger <?= $show_login_register; ?>" href="#modal-registreer">Registreren</a></li>
-				    <li><form method="post" action="#" id="logout_form"><a href="#" class="<?= $show_logout; ?>">Uitloggen</a></form></li>
+				    <li><form method="post" action="logout/logout.php" id="logout_form1"><input type="hidden" name="logout" value="true"/><a id="logout_link1" href="#" class="<?= $show_logout; ?>">Uitloggen</a></form></li>
 			    </ul>
 			    <ul class="side-nav" id="sidenav">
 				    <li id="sidebar-logo"><a href="" class="brand-logo">Rooster Manager</a></li>
 				    <div class="divider"></div>
 				    <li><a class="modal-trigger <?= $show_login_register; ?>" href="#modal-login">Inloggen</a></li>
 				    <li><a class="modal-trigger <?= $show_login_register; ?>" href="#modal-registreer">Registreren</a></li>
-				    <li><form method="post" action="#" id="logout_form"><a href="#" class="<?= $show_logout; ?>">Uitloggen</a></form></li>
+				    <li><form method="post" action="logout/logout.php" id="logout_form2"><input type="hidden" name="logout" value="true"/><a id="logout_link2" href="#" class="<?= $show_logout; ?>">Uitloggen</a></form></li>
 			    </ul>
 		    </div>
 	    </nav>

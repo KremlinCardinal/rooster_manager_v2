@@ -66,4 +66,12 @@ $(document).ready(function(){
 	if($('#modal-login').hasClass("login_error_succes")) {
 		toast('U bent nu ingelogd.', 5000);
 	}
+
+	$('#logout_link1').click(function() {
+		$('#logout_form1').submit();
+	});
+
+	$('#logout_link2').click(function() {
+		$('#logout_form2').submit();
+	});
 });

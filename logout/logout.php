@@ -1,7 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Michiel
- * Date: 14-4-2015
- * Time: 13:15
- */
+session_start();
+
+if(isset($_POST['logout']) && $_POST['logout'] == 'true') {
+	session_unset();
+	header('Location: ../index.php');
+}
