@@ -16,6 +16,10 @@ main {
 	margin: 0!important;
 }
 
+.col1 {
+	padding-left: 15px;
+}
+
 footer.page-footer {
 	position: fixed;
 	bottom: 0;
