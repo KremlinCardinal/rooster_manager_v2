@@ -5,8 +5,8 @@ if(!empty($_POST['login']['submit'])) {
 		$naam = $_POST['login']['naam'];
 		$wachtwoord = md5($_POST['login']['wachtwoord']);
 
-//		$db = new PDO('mysql:host=localhost;dbname=project', 'deb67958_ruud', 'harmen');
-		$db = new PDO('mysql:host=localhost;dbname=project', 'root', '');
+		$db = new PDO('mysql:host=localhost;dbname=deb67958_roostermanager', 'deb67958_ruud', 'harmen');
+		//$db = new PDO('mysql:host=localhost;dbname=project', 'root', '');
 
 		$checkUsers = "SELECT * FROM accounts WHERE gebruikersnaam = '$naam' AND wachtwoord = '$wachtwoord'";
 		$userStmt = $db->prepare($checkUsers);
