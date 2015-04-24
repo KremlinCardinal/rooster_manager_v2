@@ -26,28 +26,35 @@ function processJSON(jsonArray,preDateTs,preTimestamp) {
     $(".day-next").html(tomorrow);
 
 	var pattern = '^'+dateTs;
-
     for(var i = 0; i < JSONArr.length; i++) {
 	    if(doRegCheck(pattern,JSONArr[i].date)) {
 		    var s = 1;
 		    for(var countr = 0; countr < JSONArr[i].items.length; countr++) {
-			    $("#rooster_body").append(
-				    '<tr class="row'+s+'">' +
-					    '<td class="time col1">'+JSONArr[i].items[countr].t+'</td>' +
-					    '<td class="class col2">'+JSONArr[i].items[countr].v+'</td>' +
-					    '<td class="room col3">'+JSONArr[i].items[countr].r+'</td>' +
-					    '<td class="teacher col4">'+JSONArr[i].items[countr].l+'</td>' +
-				    '</tr>'
-			    );
+			    var html = '<tr class="row'+s+' row" >' +
+				    '<td class="time col1">'+JSONArr[i].items[countr].t+'</td>' +
+				    '<td class="class col2">'+JSONArr[i].items[countr].v+'</td>' +
+				    '<td class="room col3">'+JSONArr[i].items[countr].r+'</td>' +
+				    '<td class="teacher col4">'+JSONArr[i].items[countr].l+'</td>';
+
+			    if($('#rooster').hasClass('logged_in')) {
+				    html += '<td class="info col5">' +
+				    '<a class="waves-effect waves-green btn-flat"><i class="mdi-action-info"></i></a>' +
+				    '<a class="waves-effect waves-green btn-flat"><i class="mdi-content-add"></i></a>' +
+				    '</td>';
+			    }
+			    html += '</tr>';
+			    $("#rooster_body").append(html);
+			    $("#rooster_body tr.row"+s).data('data',JSONArr[i].items[countr]);
 			    s++;
 		    }
 	    }
     }
 
+	var colspan = $("#rooster th").length;
 	if($("#rooster_body").html() === '') {
 		$("#rooster_body").append(
 			'<tr>' +
-				'<td colspan="4" class="center">Er zijn geen lessen voor vandaag gevonden.</td>' +
+				'<td colspan="'+colspan+'" class="center">Er zijn geen lessen voor vandaag gevonden.</td>' +
 			'</tr>'
 		);
 	}

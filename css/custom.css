@@ -6,6 +6,7 @@ body {
 
 main {
     flex: 1 0 auto;
+	margin-bottom: 47px;
 }
 
 #sidebar-logo {
@@ -16,14 +17,35 @@ main {
 	margin: 0!important;
 }
 
+#rooster_body td {
+	padding: 10px 5px;
+}
+
+#rooster_body .col1,
 .col1 {
 	padding-left: 15px;
 }
+
+.col5 {
+	width: 12%;
+}
+
+#rooster_body .btn-flat {
+	margin: 0 8px;
+	padding: 0 8px;
+}
+
+#rooster_body td.info .btn-flat {
+	position: relative;
+	left: -16px;
+}
+
 
 footer.page-footer {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
+	z-index: 10;
 }
 
 @media screen and (max-width: 400px) {

@@ -74,4 +74,16 @@ $(document).ready(function(){
 	$('#logout_link2').click(function() {
 		$('#logout_form2').submit();
 	});
+
+	$("tr .mdi-content-add").click(function() {
+		var jsonVars = $(this).parent().parent().parent().data('data');
+		$("input#addnote_class").val(jsonVars.v);
+		$("#modal-addnote").openModal();
+		console.log(jsonVars);
+	});
+
+
+});
+$("#addnote_submit").click(function() {
+	addnote();
 });

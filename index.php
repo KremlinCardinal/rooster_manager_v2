@@ -123,6 +123,29 @@ if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 		    </div>
 	    </form>
     </div>
+    <div id="modal-addnote" class="modal">
+	    <form id="addnote_form">
+		    <div class="modal-content">
+			    <h4>Notitie toevoegen</h4>
+			    <div class="input-field">
+				    <input id="addnote_class" type="text" name="addnote[class]" disabled/>
+				    <label class="active" for="addnote_class">Vak</label>
+			    </div>
+			    <div class="input-field">
+				    <input id="addnote_title" type="text" name="addnote[title]"/>
+				    <label for="addnote_title">Titel</label>
+			    </div>
+			    <div class="input-field">
+				    <textarea id="addnote_note" name="addnote[note]" class="materialize-textarea"></textarea>
+				    <label for="addnote_note">Notitie</label>
+			    </div>
+		    </div>
+		    <div class="modal-footer">
+			    <a href="#" id="addnote_submit" class="waves-effect waves-green btn-flat modal-action modal-close"><i class="mdi-content-send right" style="padding-left: 5px"></i>Opslaan</a>
+			    <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Annuleren</a>
+		    </div>
+	    </form>
+    </div>
     <main id="main">
 	    <div id="choose_class">
 		    <div class="row" style="margin-bottom: 5px">
@@ -146,13 +169,14 @@ if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 		    </div>
 	    </div>
 	    <div class="divider"></div>
-        <div id="rooster">
+        <div id="rooster" <?php echo (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true ? 'class="logged_in"' : ''); ?>>
             <table class="striped">
                 <thead>
                     <th data-field="time" class="time col1">Tijd</th>
                     <th data-field="class" class="class col2">Vak</th>
                     <th data-field="room" class="room col3">Lokaal</th>
                     <th data-field="teacher" class="teacher col4">Docent</th>
+                    <?php echo (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true ? '<th data-field="info" class="info col5">Notities</th>' : ''); ?>
                 </thead>
                 <tbody id="rooster_body"></tbody>
             </table>
@@ -177,8 +201,10 @@ if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
     </footer>
     <script src="js/jquery-2.1.3.min.js"></script>
     <script src="js/materialize.min.js"></script>
-    <script src="js/custom.js"></script>
+
     <script src="js/functions.js"></script>
+    <script src="js/ajax.js"></script>
+    <script src="js/custom.js"></script>
     <script>
         var jsonArray = <?php echo $jsonArray; ?>;
         var preTs = <?= $date ?>;
