@@ -82,8 +82,13 @@ $(document).ready(function(){
 		console.log(jsonVars);
 	});
 
+	$("tr .mdi-action-info").click(function(){
+		var jsonVars = $(this).parent().parent().parent().data('data');
+		getNotes(jsonVars.v);
+	});
 
 });
+
 $("#addnote_submit").click(function() {
-	addnote();
+	addNote();
 });

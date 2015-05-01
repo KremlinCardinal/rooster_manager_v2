@@ -38,7 +38,7 @@ function processJSON(jsonArray,preDateTs,preTimestamp) {
 
 			    if($('#rooster').hasClass('logged_in')) {
 				    html += '<td class="info col5">' +
-				    '<a class="waves-effect waves-green btn-flat"><i class="mdi-action-info"></i></a>' +
+				    '<a class="waves-effect waves-green btn-flat get-notes"><i class="mdi-action-info"></i></a>' +
 				    '<a class="waves-effect waves-green btn-flat"><i class="mdi-content-add"></i></a>' +
 				    '</td>';
 			    }

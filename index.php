@@ -24,8 +24,7 @@ if(!isset($_REQUEST["klas"]) || empty($_REQUEST["klas"])) {
 
 include 'api/functions.php';
 $a = getRooster($klas,-10);
-$b = json_encode($a);
-$jsonArray = $b;
+$jsonArray = json_encode($a);
 
 $show_login_register = '';
 $show_logout = 'hiddendiv';
@@ -47,6 +46,12 @@ if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300,500,100' rel='stylesheet' type='text/css'>
+
+	<script>
+		<?php if(isset($_SESSION['user'])) : ?>
+		var username = "<?= $_SESSION['user'] ?>";
+		<?php endif; ?>
+	</script>
 </head>
 <body>
 
