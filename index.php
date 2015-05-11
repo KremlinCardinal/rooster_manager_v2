@@ -132,6 +132,7 @@ if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 	    <form id="addnote_form">
 		    <div class="modal-content">
 			    <h4>Notitie toevoegen</h4>
+			    <div class="divider"></div>
 			    <div class="input-field">
 				    <input id="addnote_class" type="text" name="addnote[class]" disabled/>
 				    <label class="active" for="addnote_class">Vak</label>
