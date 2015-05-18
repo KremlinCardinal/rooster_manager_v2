@@ -49,12 +49,11 @@ if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 
 	<script>
 		<?php if(isset($_SESSION['user'])) : ?>
-		var username = "<?= $_SESSION['user'] ?>";
+		var userid = "<?= $_SESSION['userid'] ?>";
 		<?php endif; ?>
 	</script>
 </head>
 <body>
-
     <header id="header" class="collection-header">
 	    <nav>
 		    <div class="nav-wrapper light-blue lighten-1 row">
@@ -138,10 +137,6 @@ if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 				    <label class="active" for="addnote_class">Vak</label>
 			    </div>
 			    <div class="input-field">
-				    <input id="addnote_title" type="text" name="addnote[title]"/>
-				    <label for="addnote_title">Titel</label>
-			    </div>
-			    <div class="input-field">
 				    <textarea id="addnote_note" name="addnote[note]" class="materialize-textarea"></textarea>
 				    <label for="addnote_note">Notitie</label>
 			    </div>
@@ -151,6 +146,39 @@ if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 			    <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Annuleren</a>
 		    </div>
 	    </form>
+    </div>
+    <div id="modal-editnote" class="modal">
+	    <form id="editnote_form">
+		    <div class="modal-content">
+			    <h4>Notitie bewerken</h4>
+			    <div class="divider"></div>
+			    <div class="input-field">
+				    <input id="editnote_class" type="text" name="editnote[class]" disabled/>
+				    <label class="active" for="editnote_class">Vak</label>
+			    </div>
+			    <div class="input-field">
+				    <textarea id="editnote_note" name="editnote[note]" class="materialize-textarea"></textarea>
+				    <label for="editnote_note" class="active">Notitie</label>
+			    </div>
+		    </div>
+		    <div class="modal-footer">
+			    <a href="#" id="editnote_submit" class="waves-effect waves-green btn-flat modal-action modal-close"><i class="mdi-content-send right" style="padding-left: 5px"></i>Opslaan</a>
+			    <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Annuleren</a>
+		    </div>
+	    </form>
+    </div>
+    <div id="modal-getnote" class="modal">
+	    <div class="modal-content">
+		    <h4>Notitie bekijken</h4>
+			<div class="divider"></div>
+		    <h5 class="class"></h5>
+		    <div class="divider"></div>
+		    <div class="note flow-text"></div>
+	    </div>
+	    <div class="modal-footer">
+		    <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Sluiten</a>
+		    <a href="#" id="editnote_open" class="waves-effect waves-green btn-flat modal-action modal-close">Bewerken</a>
+	    </div>
     </div>
     <main id="main">
 	    <div id="choose_class">

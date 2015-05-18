@@ -87,8 +87,18 @@ $(document).ready(function(){
 		getNotes(jsonVars.v);
 	});
 
+
+
 });
 
 $("#addnote_submit").click(function() {
 	addNote();
+});
+
+$("#editnote_open").click(function() {
+	$("#modal-editnote").openModal();
+});
+
+$("#editnote_submit").click(function() {
+	editNotes();
 });
