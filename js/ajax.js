@@ -29,9 +29,7 @@ function getNotes(vak) {
 		type: "POST",
 		dataType: "html",
 		success: function(result) {
-			console.log(result);
 			var jsonvars = JSON.parse(result);
-			console.log(jsonvars);
 			$("#modal-getnote .class").html(vak);
 			$("#modal-getnote .note").html(jsonvars[vak]);
 			$("#modal-editnote #editnote_class").val(vak);
